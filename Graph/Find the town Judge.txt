@@ -1,0 +1,34 @@
+ 
+  Question Link :- https://leetcode.com/problems/find-the-town-judge/submissions/ 
+
+
+  ** Find the Town Judge
+   => simple Indegree and Outdegree
+
+
+   
+  answer :-
+
+      int findJudge(int n, vector<vector<int>>& trust) {
+     // it is impossible for there to be a town judge if there are not at least N - 1 edges in the trust array
+        if (trust.size() < n - 1)
+            return -1;
+        if (n == 1)
+            return n;
+     
+       int netDegree[n+1];
+       for(int i=1;i<=n;i++) netDegree[i]=0;
+        for (int i=0; i<trust.size(); i++) {
+            int src = trust[i][0];
+            int dest = trust[i][1];
+            netDegree[dest]++;
+            netDegree[src]--;
+        }
+        
+        for (int i = 0; i < n + 1; i++) {
+            if (netDegree[i] == n - 1)
+                return i;
+        }
+ 
+        return -1;
+    }
