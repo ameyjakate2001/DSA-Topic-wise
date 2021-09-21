@@ -1,0 +1,72 @@
+ 
+  Problem:- we have given 
+            weight array, value array and capacity the knapsack can hold.
+        wt[] = [1,1,1], val[] = [10,20,30], w = 2.
+        and we have to calculate maximum profit can made ??
+
+
+        firstly, we will write recursive and then can memorize the result, as it is the overlapping problem.
+        
+        1) As we can draw the choice diagram for any thing,
+           we have two choices as that thing will be taken in consideration or not.
+            1) when (wt[n-1] <= W) we can take that in consideration else not.
+
+        #For base condition :- we can think of the last valid input .
+    
+ 
+
+
+      Code:- 
+      
+         int Knapsack(wt[], val[], W, n) {
+            
+           //base Condition
+           if(n == 0 || W == 0)
+               return 0;    
+
+            if(wt[n-1] <= W) {
+               return max( val[n-1] + Knapsack(wt,val, W-wt[n-1], n-1),
+                           Knapsack(wt, val, w, n-1) )
+            }
+            
+            else {
+               return Knapsack(wt,val, w, n-1);
+            }
+
+         }
+
+
+    Now, for memorization:-
+
+       as, the output is dependent on two parameters such as,
+       W-capacity of knapsack, n-where we at ,
+ so , we will make 2-D array of t[n][w];
+       
+     what does t(3,2) represents :- at capacity we want is 2 and we are at 3rd element.
+     then, what max profit we can make.
+
+      Code:- 
+      
+
+         int t[n][w]={-1} 
+ 
+
+         int Knapsack(wt[], val[], W, n) {
+            
+           //base Condition
+           if(n == 0 || W == 0)
+               return 0;    
+
+             if(t[n][w] != -1) 
+                return 0;
+ 
+            if(wt[n-1] <= W) {
+               t[n][w] = max( val[n-1] + Knapsack(wt,val, W-wt[n-1], n-1),
+                           Knapsack(wt, val, w, n-1) )
+            }
+            
+            else {
+               t[n][w] = Knapsack(wt,val, w, n-1);
+            }
+
+       }
